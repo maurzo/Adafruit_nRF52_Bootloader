@@ -104,9 +104,9 @@ void led_tick(void);
 //--------------------------------------------------------------------+
 // BUTTONS
 //--------------------------------------------------------------------+
-// Make sure we have at least two buttons (DFU + FRESET since DFU+FRST=OTA)
-#if BUTTONS_NUMBER < 2
-#error "At least two buttons required in the BSP (see 'BUTTONS_NUMBER')"
+// Boards can omit buttons; otherwise DFU + FRESET are required (DFU+FRST=OTA).
+#if BUTTONS_NUMBER != 0 && BUTTONS_NUMBER < 2
+#error "Zero or at least two buttons required in the BSP (see 'BUTTONS_NUMBER')"
 #endif
 
 void button_init(uint32_t pin);

@@ -249,10 +249,12 @@ static void check_dfu_mode(void) {
   }
 
   /*------------- Determine DFU mode (Serial, OTA, FRESET or normal) -------------*/
+#if BUTTONS_NUMBER > 0
   dfu_start = dfu_start || button_pressed(BUTTON_DFU); // DFU button pressed
 
   // DFU + FRESET are pressed --> OTA
   _ota_dfu = _ota_dfu || (button_pressed(BUTTON_DFU) && button_pressed(BUTTON_FRESET));
+#endif
 
   bool const valid_app = bootloader_app_is_valid();
   bool const just_start_app = valid_app && !dfu_start && (*dbl_reset_mem) == DFU_DBL_RESET_APP;

@@ -26,6 +26,13 @@ Officially supported boards are:
 
 In addition, there is also lots of other 3rd-party boards which are added by other makers, users and community. Check out the [complete list of all boards here](/src/boards).
 
+### Custom Zongle nRF52840 bring-up
+
+The `zongle_nrf52840` target supports initial USB bring-up without assuming LED,
+button, reset-pin or regulator wiring. It is separate from the original nRF52833
+`zongle` target. See the [board notes](src/boards/zongle_nrf52840/README.md) and
+the optional [bounded RF carrier-test application](examples/rf_carrier_test/README.md).
+
 ## Features
 
 - DFU over Serial and OTA ( application, Bootloader+SD )

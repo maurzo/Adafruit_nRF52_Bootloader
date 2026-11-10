@@ -50,6 +50,7 @@ void SysTick_Handler(void) {
   led_tick();
 }
 
+#if BUTTONS_NUMBER > 0
 void button_init(uint32_t pin) {
   if (BUTTON_PULL == NRF_GPIO_PIN_PULLDOWN) {
     nrf_gpio_cfg_sense_input(pin, BUTTON_PULL, NRF_GPIO_PIN_SENSE_HIGH);
@@ -62,6 +63,7 @@ bool button_pressed(uint32_t pin) {
   uint32_t const active_state = (BUTTON_PULL == NRF_GPIO_PIN_PULLDOWN ? 1 : 0);
   return nrf_gpio_pin_read(pin) == active_state;
 }
+#endif
 
 // This is declared so that a board specific init can be called from here.
 void __attribute__((weak)) board_init2(void) {}
@@ -74,9 +76,11 @@ void board_init(void) {
   NRF_CLOCK->LFCLKSRC = CLOCK_LFCLKSRC_SRC_RC;
   NRF_CLOCK->TASKS_LFCLKSTART = 1UL;
 
+#if BUTTONS_NUMBER > 0
   button_init(BUTTON_DFU);
   button_init(BUTTON_FRESET);
   NRFX_DELAY_US(100); // wait for the pin state is stable
+#endif
 
 #if LEDS_NUMBER > 0
   // use PMW0 for LED RED
