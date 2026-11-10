@@ -144,10 +144,13 @@ target_compile_options(bootloader PUBLIC
   )
 target_compile_definitions(bootloader PUBLIC
   SOFTDEVICE_PRESENT
-  CONFIG_GPIO_AS_PINRESET
   __START=main
   __STARTUP_CLEAR_BSS
   )
+
+if (NOT USE_PINRESET STREQUAL "no")
+  target_compile_definitions(bootloader PUBLIC CONFIG_GPIO_AS_PINRESET)
+endif ()
 
 if (TRACE_ETM STREQUAL "1")
   # ENABLE_TRACE will cause system_nrf5x.c to set up ETM trace

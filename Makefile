@@ -315,7 +315,9 @@ endif
 
 # Defined Symbol (MACROS)
 CFLAGS += -D__HEAP_SIZE=0
+ifneq ($(USE_PINRESET),no)
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
+endif
 
 # Skip defining CONFIG_NFCT_PINS_AS_GPIOS if the device uses the NFCT.
 ifneq ($(USE_NFCT),yes)
